@@ -2,22 +2,22 @@ from aiogram import Router, F
 from aiogram import types
 from aiogram.filters import CommandStart, Command
 from config import admin_ids
+from keyboards import (
+    create_info_kb_builder,
+    create_info_kb_markup,
+    request_user_phone_number_and_location,
+)
 
 router = Router()
-
-
-@router.message(F.from_user.id.in_(admin_ids) & (F.text == "admin"))
-async def handle_exact_users_message(message: types.Message):
-    await message.answer(
-        text="secret message",
-    )
 
 
 @router.message(CommandStart())
 async def handle_start(message: types.Message):
     print(message.from_user.id)
+
     await message.answer(
-        f"Добро  пожаловать, {message.from_user.full_name}",
+        text=f"Добро  пожаловать, {message.from_user.full_name}",
+        reply_markup=request_user_phone_number_and_location(),
     )
 
 
@@ -25,4 +25,12 @@ async def handle_start(message: types.Message):
 async def hanle_info(message: types.Message):
     await message.answer(
         text="Это тестовый бот для изучения aiogram",
+        reply_markup=create_info_kb_markup(),
+    )
+
+
+@router.message(F.from_user.id.in_(admin_ids) & (F.text == "admin"))
+async def handle_exact_users_message(message: types.Message):
+    await message.answer(
+        text="secret message",
     )
