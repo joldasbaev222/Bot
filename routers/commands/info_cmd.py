@@ -7,16 +7,19 @@ from keyboards import (
     create_info_kb_markup,
     request_user_phone_number_and_location,
 )
+from db import cursor, conn
 
 router = Router()
 
 
 @router.message(CommandStart())
 async def handle_start(message: types.Message):
-    print(message.from_user.id)
-
+    first_name = message.from_user.first_name
+    query = "INSERT INTO users (username, email) VALUES (?,?)"
+    cursor.execute(query, (first_name, "test@gmail.com"))
+    conn.commit()
     await message.answer(
-        text=f"Добро  пожаловать, {message.from_user.full_name}",
+        text=f"Добро  пожаловать, {first_name}",
         reply_markup=request_user_phone_number_and_location(),
     )
 
