@@ -3,7 +3,7 @@ from config import token
 import asyncio
 from routers import router
 
-my_bot = Bot('8226534324:AAH5PMaaIoqBZTELTMrNZJ77ZMqcX_Lklj8')
+my_bot = Bot(token=str(token))
 dp = Dispatcher()
 
 

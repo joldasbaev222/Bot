@@ -1,11 +1,11 @@
 import sqlite3
 
-conn = sqlite3.connect("my_database.db")
+conn = sqlite3.connect("JD.db")
 db = conn.cursor()
 
 db.execute(
     """
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE  paydalaniwshilar (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 username TEXT NOT NULL UNIQUE,
 email TEXT
